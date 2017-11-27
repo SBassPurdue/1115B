@@ -10,8 +10,9 @@
  * obtained from http://sourceforge.net/projects/freertos/files/ or on request.
  */
 
-#include "main.h"
-#include "encoder.h"
+#include "auto.h"
+#include "liftControl.h"
+
 /*
  * Runs the user autonomous code. This function will be started in its own task with the default
  * priority and stack size whenever the robot is enabled via the Field Management System or the
@@ -27,4 +28,49 @@
  * so, the robot will await a switch to another mode or disable/enable cycle.
  */
 void autonomous() {
+
+encoderReset(enRightLift);
+encoderReset(enLeftLift);
+lcdSetBacklight(uart1, 1);
+
+int targLift = 320;
+
+  while (encoderGet(enRightLift) < targLift || encoderGet(enLeftLift) < targLift) {
+    delay(20);
+
+    lcdPrint(uart1, 1, "enL: %d", encoderGet(enLeftLift));
+    lcdPrint(uart1, 2, "enR: %d", encoderGet(enRightLift));
+
+    if(encoderGet(enLeftLift) < targLift) {
+      motorSet(2, 127);
+    } else {motorStop(2);}
+    if(encoderGet(enRightLift) < targLift) {
+      motorSet(3, -127);
+    } else {motorStop(3);}
+  }
+
+  forward(55);
+
+  targLift = 275;
+
+  while (encoderGet(enRightLift) < targLift || encoderGet(enLeftLift) < targLift) {
+    delay(20);
+
+    lcdPrint(uart1, 1, "enL: %d", encoderGet(enLeftLift));
+    lcdPrint(uart1, 2, "enR: %d", encoderGet(enRightLift));
+
+    if(encoderGet(enLeftLift) > targLift) {
+      motorSet(2, -127);
+    } else {motorStop(2);}
+    if(encoderGet(enRightLift) > targLift) {
+      motorSet(3, 127);
+    } else {motorStop(3);}
+  }
+
+  extake(1000);
+
+  back(25);
+
+/*while (lift(2, enRightLift, 65) || lift(3, enLeftLift, 65)) {}
+while (moveTo(5, enLeftDrive, 48.3) || moveTo(7, enLeftDrive, 48.3) || moveTo(4, enRightDrive, 48.3) || moveTo(6, enRightDrive, 48.3)) {}*/
 }

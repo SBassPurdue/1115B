@@ -94,6 +94,11 @@ void initialize();
  */
 void operatorControl();
 
+Encoder enLeftDrive;
+Encoder enRightDrive;
+Encoder enLeftLift;
+Encoder enRightLift;
+
 // End C++ export structure
 #ifdef __cplusplus
 }
