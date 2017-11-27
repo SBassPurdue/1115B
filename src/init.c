@@ -11,7 +11,6 @@
  */
 
 #include "main.h"
-#include "encoder.h"
 /*
  * Runs pre-initialization code. This function will be started in kernel mode one time while the
  * VEX Cortex is starting up. As the scheduler is still paused, most API functions will fail.
@@ -36,5 +35,25 @@ void initializeIO() {
  * will not start. An autonomous mode selection menu like the pre_auton() in other environments
  * can be implemented in this task if desired.
  */
-void initialize() {
-}
+
+
+ void initialize() {
+
+   setTeamName("1115B");
+
+   //Encoder Initialization
+
+   enLeftDrive = encoderInit(1, 2, 0);
+   enRightDrive = encoderInit(3, 4, 0);
+   enRightLift = encoderInit(5, 6, 1);
+   enLeftLift = encoderInit(7, 8, 0);
+
+   //LCD Initialization
+
+   lcdInit(uart1);
+   lcdClear(uart1);
+   lcdSetBacklight(uart1, 0);
+   lcdSetText(uart1, 1, "  I Voted  For  ");
+   lcdSetText(uart1, 2, "      Trump     ");
+   
+ }
