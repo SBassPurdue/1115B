@@ -10,8 +10,11 @@
  * obtained from http://sourceforge.net/projects/freertos/files/ or on request.
  */
 
-#include "main.h"
-#include "encoder.h"
+#include "auto.h"
+#include "liftControl.h"
+#include "repos.h"
+#include "lcd.h"
+
 /*
  * Runs the user autonomous code. This function will be started in its own task with the default
  * priority and stack size whenever the robot is enabled via the Field Management System or the
@@ -27,4 +30,8 @@
  * so, the robot will await a switch to another mode or disable/enable cycle.
  */
 void autonomous() {
+  encoderReset(enRightLift);
+  encoderReset(enLeftLift);
+  taskResume(lMgFbHandler);
+  lcdScriptExecute();
 }

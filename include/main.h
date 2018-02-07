@@ -94,6 +94,18 @@ void initialize();
  */
 void operatorControl();
 
+Encoder enLeftDrive;
+Encoder enRightDrive;
+Encoder enLeftLift;
+Encoder enRightLift;
+Gyro gyro;
+
+int lcdIN;
+int forebarVar;
+int mobileVar;
+int liftVar;
+
+TaskHandle lMgFbHandler;
 // End C++ export structure
 #ifdef __cplusplus
 }
