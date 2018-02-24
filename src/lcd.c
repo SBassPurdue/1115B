@@ -206,7 +206,7 @@ void mainMenu(void) {
 			}
 		}
 		else if (page == 2) {
-			lcdPrintCentered(1, "Change  Auto");
+			lcdPrintCentered(1, "Suck Me DRY ");
 			lcdPrintCentered(2, "<  Select   ");
 			if (button == 2 && !waitForRelease) {
 				waitForRelease = true;
@@ -238,8 +238,9 @@ void mainMenu(void) {
 			lcdPrint(lcdPort, 2, "Is Not Ready Yet");*/
 
 			// lcdPrint(lcdPort, 1, "< Sensor  Type >");
-			lcdPrint(lcdPort, 1, " Left Lift: %d", encoderGet(enLeftLift));
+			//lcdPrint(lcdPort, 1, " Left Lift: %d", encoderGet(enLeftLift));
 			lcdPrint(lcdPort, 2, "Right Lift: %d", encoderGet(enRightLift));
+			lcdPrint(lcdPort, 1, " Ptmr: %d", analogRead(1));
 			if (button == 2 && !waitForRelease) {
 				// fprintf(stdout, "%s\n", "It Worked!");
 				// page = sensorTypeNumber + 5;

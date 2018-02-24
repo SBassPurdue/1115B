@@ -239,10 +239,10 @@ void forward(float dist) {
   int tick = 5; // Amout of seconds*10 after the bot moves to correct any final
   while (true) {
     delay(20);
-    motorSet(5, repos(encoderGet(enLeftDrive), calc, 30));
-    motorSet(7, repos(encoderGet(enLeftDrive), calc, 30));
-    motorSet(4, -repos(encoderGet(enRightDrive), calc, 30));
-    motorSet(6, -repos(encoderGet(enRightDrive), calc, 30));
+    motorSet(5, 0.8*repos(encoderGet(enLeftDrive), calc, 30));
+    motorSet(7, 0.8*repos(encoderGet(enLeftDrive), calc, 30));
+    motorSet(4, -0.8*repos(encoderGet(enRightDrive), calc, 30));
+    motorSet(6, -0.8*repos(encoderGet(enRightDrive), calc, 30));
 
     lcdPrint(uart1, 1, "enR: %d", encoderGet(enRightDrive));
     lcdPrint(uart1, 2, "enL: %d", encoderGet(enLeftDrive));
@@ -251,7 +251,7 @@ void forward(float dist) {
     //motorSet(3, repos2(-encoderGet(leftBack), calc, getSpeed(leftBack), 1, 1));
     //motorSet(4, -repos2(encoderGet(rightBack), calc, getSpeed(rightBack), 1, 1));
     //motorSet(5, -repos2(encoderGet(rightBack), calc, getSpeed(rightBack), 1, 1));
-    if (inr(max(encoderGet(enLeftDrive), encoderGet(enRightDrive)), calc, 30)) {
+    if (inr(max(encoderGet(enLeftDrive), encoderGet(enRightDrive)), calc, 35)) {
       tick -= 1;
     } else {
       tick = 5;

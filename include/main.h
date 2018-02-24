@@ -94,6 +94,10 @@ void initialize();
  */
 void operatorControl();
 
+#define fbrUp 1180
+#define fbrOut 2400
+#define fbrDown 3600
+
 Encoder enLeftDrive;
 Encoder enRightDrive;
 Encoder enLeftLift;

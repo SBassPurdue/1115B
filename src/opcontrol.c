@@ -47,7 +47,10 @@ void operatorControl() {
   //int targetLift = 0;
   //int speedLiftPID = 25;
   //float speedLift = 20;
+  signed char joy = 0;
   int liftC = 0;
+  int liftCL = 0;
+  int liftCR = 0;
   int liftDiff = 0;
   int forebar = 0;
   int calc = 0;
@@ -83,9 +86,17 @@ while (0 == 0) {
     }
     liftC = 127*(joystickGetDigital(1, 6, JOY_UP)-joystickGetDigital(1, 6, JOY_DOWN));
     liftC = liftC + joystickGetAnalog(2, 3);
-
-    motorSet(2, -liftC); //Lift Left
-    motorSet(3, liftC); //Lift Right
+    joy = joystickGetAnalog(2, 4);
+    if (abs(joy) > 50) {
+      joy = 0.3 * joy;
+      liftCL = liftC + joy;
+      liftCR = liftC - joy;
+      motorSet(2, -liftCL); //Lift Left
+      motorSet(3, liftCR); //Lift Right
+    } else {
+      motorSet(2, -liftC); //Lift Left
+      motorSet(3, liftC); //Lift Right
+    }
 
     /*if (liftC < 10) {
       calc = 0.5*(encoderGet(enLeftLift) + encoderGet(enRightLift));
@@ -108,9 +119,9 @@ while (0 == 0) {
     if (joystickGetDigital(2, 8, JOY_RIGHT) || joystickGetDigital(2, 8, JOY_LEFT)) {forebar = 2;} //Forebar Out
     if (joystickGetDigital(2, 8, JOY_UP)) {forebar = 3;} //Forebar Up
 
-    if (forebar == 1) {motorSet(10, repos(analogRead(1), 4080, 30));} //Forebar Down
-    if (forebar == 2) {motorSet(10, repos(analogRead(1), 3270, 15));} //Forebar Out
-    if (forebar == 3) {motorSet(10, repos(analogRead(1), 1880, 30));} //Forebar Up
+    if (forebar == 1) {motorSet(10, repos(analogRead(1), fbrDown, 30));} //Forebar Down
+    if (forebar == 2) {motorSet(10, repos(analogRead(1), fbrOut, 15));} //Forebar Out
+    if (forebar == 3) {motorSet(10, repos(analogRead(1), fbrUp, 30));} //Forebar Up
 
     //Intake Control
 

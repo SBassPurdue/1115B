@@ -31,7 +31,7 @@
  */
 void Right22(void) {
 
-  forebarSet(1880, 0);
+  forebarSet(fbrUp, 0);
   mobileMove(1400, 0);
 
   forward2(130);
@@ -79,7 +79,7 @@ void Right22(void) {
 
 void Right12(void) {
 
-  forebarSet(1880, 0);
+  forebarSet(fbrUp, 0);
   mobileMove(1400, 0);
 
   forward2(130);
@@ -126,7 +126,7 @@ void Right12(void) {
 }
 
 void Right7(void) {
-  forebarSet(1880, 0);
+  forebarSet(fbrUp, 0);
   mobileMove(1400, 0);
 
   forward2(135);
@@ -157,7 +157,7 @@ void Right7(void) {
 }
 
 void Left7(void) {
-  forebarSet(1880, 0);
+  forebarSet(fbrUp, 0);
   mobileMove(1400, 0);
 
   forward2(140);
@@ -189,7 +189,7 @@ void Left7(void) {
 
 void Left12(void) {
 
-  forebarSet(1880, 0);
+  forebarSet(fbrUp, 0);
   mobileMove(1400, 0);
 
   forward2(135);
@@ -237,7 +237,7 @@ void Left12(void) {
 
 void Left22(void) {
 
-  forebarSet(1880, 0);
+  forebarSet(fbrUp, 0);
   mobileMove(1400, 0);
 
   forward2(130);
@@ -285,7 +285,7 @@ void Left22(void) {
 
 void Left24(void) {
 
-  forebarSet(1880, 0);
+  forebarSet(fbrUp, 0);
   mobileMove(1400, 0);
 
   forward2(130);
@@ -307,16 +307,13 @@ void Left24(void) {
 
   rotSet();
 
-  forebarSet(3270, 0);
+  forebarSet(fbrOut, 0);
   align(20);
 
-  forebarSet(4080, 0);
+  forebarSet(fbrDown, 0);
   intake(500);
 
-  forebarSet(4180, 0);
-  intake(250);
-
-  forebarSet(1880, 0);
+  forebarSet(fbrUp, 0);
   lift(150, 0);
   rotGo(2);
 
@@ -352,22 +349,24 @@ void pylon(void) {
   encoderReset(enLeftLift);
   encoderReset(enRightLift);
 
-  forebarSet(1880, 0);
-  lift(370, 0);
+  motorSet(1, -40);
+  forebarSet(fbrUp, 0);
+  lift(280, 0);
 
   delay(2000);
 
   forward2(55);
 
-  lift(280, 0);
+  lift(200, 0);
 
   delay(500);
 
-  lift(380, 0);
+  lift(330, 0);
   extake(1600);
 
-  lift(170, 0);
   forward(-50);
+
+  lift(80, 0);
 }
 
 void pylonL(void) {
@@ -375,24 +374,9 @@ void pylonL(void) {
   encoderReset(enLeftLift);
   encoderReset(enRightLift);
 
-  forebarSet(1880, 0);
-  lift(370, 0);
+  pylon();
 
-  delay(2000);
-
-  forward2(55);
-
-  lift(280, 0);
-
-  delay(500);
-
-  lift(380, 0);
-  extake(1600);
-
-  lift(170, 0);
-  forward(-50);
-
-  forebarSet(1880, 0);
+  forebarSet(fbrUp, 0);
   mobileMove(1400, 0);
 
   rotate(-90, 1.5);
@@ -402,27 +386,9 @@ void pylonL(void) {
 
 void pylonR(void) {
 
-  encoderReset(enLeftLift);
-  encoderReset(enRightLift);
+  pylon();
 
-  forebarSet(1880, 0);
-  lift(370, 0);
-
-  delay(2000);
-
-  forward2(55);
-
-  lift(280, 0);
-
-  delay(500);
-
-  lift(380, 0);
-  extake(1600);
-
-  lift(170, 0);
-  forward(-50);
-
-  forebarSet(1880, 0);
+  forebarSet(fbrUp, 0);
   mobileMove(1400, 0);
 
   rotate(90, 1.5);
@@ -448,22 +414,11 @@ void defense(void) {
 motorStopAll();
 }
 
-void redSkills(void) {
-  forebarSet(1880, 0);
+/*void redSkills(void) {
+  forebarSet(fbrUp, 0);
   mobileMove(1400, 0);
 
   forward2(130);
-
-  /*motorSet(4, -60);
-  motorSet(6, -60);
-  motorSet(5, 60);
-  motorSet(7, 60);
-  mobileMove(-1400, 0);
-  delay(180);
-  motorStop(4);
-  motorStop(5);
-  motorStop(6);
-  motorStop(7);*/
 
   align(35);
 
@@ -563,6 +518,85 @@ void redSkills(void) {
 
   mobileMove(700, 0);
   align(40);
+
+  mobileMove(700, 0);
+  delay(400);
+
+  motorSet(4, 127);
+  motorSet(6, 127);
+  motorSet(5, -127);
+  motorSet(7, -127);
+  mobileMove(-500, 0);
+  delay(1000);
+  motorStop(4);
+  motorStop(5);
+  motorStop(6);
+  motorStop(7);
+
+}*/
+
+void redSkills (void) {
+
+  forebarSet(fbrUp, 0);
+  mobileMove(1400, 0);
+
+  delay(750);
+
+  forward2(85);
+
+  motorSet(4, -60);
+  motorSet(6, -60);
+  motorSet(5, 60);
+  motorSet(7, 60);
+  mobileMove(-1400, 0);
+  delay(180);
+  motorStop(4);
+  motorStop(5);
+  motorStop(6);
+  motorStop(7);
+
+  rotate(-180, 1.5);
+
+  mobileMove(700, 0);
+  align(40);
+
+  mobileMove(700, 0);
+  delay(400);
+
+  forward(-85);
+
+  mobileMove(-500, 0);
+  rotate(90, 1.5);
+
+  forward2(45);
+
+  mobileMove(750, 0);
+
+  motorSet(4, -60);
+  motorSet(6, -60);
+  motorSet(5, 60);
+  motorSet(7, 60);
+  mobileMove(-1400, 0);
+  delay(180);
+  motorStop(4);
+  motorStop(5);
+  motorStop(6);
+  motorStop(7);
+
+  rotate(-90, 1.5);
+
+  align(40);
+
+  forward(-10);
+
+  rotate(-90, 1.5);
+
+  forward(-30);
+
+  rotate(90, 1.5);
+
+  mobileMove(700, 0);
+  align(127);
 
   mobileMove(700, 0);
   delay(400);
