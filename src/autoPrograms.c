@@ -537,6 +537,7 @@ motorStopAll();
 
 void redSkills (void) {
 
+  rotSet();
   forebarSet(fbrUp, 0);
   mobileMove(1400, 0);
 
@@ -563,14 +564,19 @@ void redSkills (void) {
   mobileMove(700, 0);
   delay(400);
 
-  forward(-85);
+  forward(-45);
+
+  rotGo(1.5);
 
   mobileMove(-500, 0);
-  rotate(90, 1.5);
 
-  forward2(45);
+  forward(55);
+
+
+  rotate(-80, 1.5);
 
   mobileMove(750, 0);
+  forward2(85);
 
   motorSet(4, -60);
   motorSet(6, -60);
@@ -587,13 +593,13 @@ void redSkills (void) {
 
   align(40);
 
-  forward(-10);
-
-  rotate(-90, 1.5);
-
-  forward(-30);
+  forward(-35);
 
   rotate(90, 1.5);
+
+  forward(-35);
+
+  rotate(-90, 1.5);
 
   mobileMove(700, 0);
   align(127);

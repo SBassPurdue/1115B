@@ -44,8 +44,8 @@ void operatorControl() {
   //bool lastOut = 0;
   //int targetLeft = 0;
   //int targetRight = 0;
-  //int targetLift = 0;
   //int speedLiftPID = 25;
+  //int targetLift = 0;
   //float speedLift = 20;
   signed char joy = 0;
   int liftC = 0;
@@ -53,16 +53,10 @@ void operatorControl() {
   int liftCR = 0;
   int liftDiff = 0;
   int forebar = 0;
-  int calc = 0;
-  //char name[15];
 
   encoderReset(enLeftLift);
   encoderReset(enRightLift);
 
-  //int leftFrontSpeed = 0;
-  //int leftBackSpeed = 0;
-  //int rightBackSpeed = 0;
-  //int rightFrontSpeed = 0;
   int t = 0; //Timer
   int i = 0;
 
@@ -98,19 +92,10 @@ while (0 == 0) {
       motorSet(3, liftC); //Lift Right
     }
 
-    /*if (liftC < 10) {
-      calc = 0.5*(encoderGet(enLeftLift) + encoderGet(enRightLift));
-      motorSet(2, repos(encoderGet(enLeftLift), 0, 30));
-      motorSet(3, -repos(encoderGet(enRightLift), 0, 30));
-    }*/
-    /*
-    motorSet(2, joystickGetAnalog(2, 3));
-    motorSet(3, -joystickGetAnalog(2, 3));
-    */
     //Forebar Control
 
-    //motorSet(10, 127*(joystickGetDigital(2, 5, JOY_UP)-joystickGetDigital(2, 5, JOY_DOWN)));
-    motorSet(10, -joystickGetAnalog(2, 2));
+    motorSet(8, joystickGetAnalog(2, 2));
+    motorSet(9, joystickGetAnalog(2, 2));
 
     //Forebar Presets
 
@@ -119,9 +104,18 @@ while (0 == 0) {
     if (joystickGetDigital(2, 8, JOY_RIGHT) || joystickGetDigital(2, 8, JOY_LEFT)) {forebar = 2;} //Forebar Out
     if (joystickGetDigital(2, 8, JOY_UP)) {forebar = 3;} //Forebar Up
 
-    if (forebar == 1) {motorSet(10, repos(analogRead(1), fbrDown, 30));} //Forebar Down
-    if (forebar == 2) {motorSet(10, repos(analogRead(1), fbrOut, 15));} //Forebar Out
-    if (forebar == 3) {motorSet(10, repos(analogRead(1), fbrUp, 30));} //Forebar Up
+    if (forebar == 1) {
+      motorSet(8, repos(analogRead(1), fbrDown, 30)); //Forebar Down
+      motorSet(9, repos(analogRead(1), fbrDown, 30));
+    }
+    if (forebar == 2) {
+      motorSet(8, repos(analogRead(1), fbrOut, 30)); //Forebar Out
+      motorSet(9, repos(analogRead(1), fbrOut, 30));
+    }
+    if (forebar == 3) {
+      motorSet(8, repos(analogRead(1), fbrUp, 30)); //Forebar Up
+      motorSet(9, repos(analogRead(1), fbrUp, 30));
+    }
 
     //Intake Control
 
@@ -141,8 +135,7 @@ while (0 == 0) {
           t = 0;
     }
 
-    motorSet(8, -127*(joystickGetDigital(2, 7, JOY_UP)-joystickGetDigital(2, 7, JOY_DOWN))); //Mobile Intake 1
-    motorSet(9, 127*(joystickGetDigital(2, 7, JOY_UP)-joystickGetDigital(2, 7, JOY_DOWN))); //Mobile Intake 2
+    motorSet(10, 127*(joystickGetDigital(2, 7, JOY_UP)-joystickGetDigital(2, 7, JOY_DOWN))); //Mobile Intake
 
     //lcdPrint(uart1, 1, "Gyro: %d", gyroGet(gyro));
     //lcdPrint(uart1, 1, "Joy2: %d", isJoystickConnected(2));
@@ -192,7 +185,8 @@ while (0 == 0) {
 
     //Forebar Control
 
-    motorSet(10, -127*(joystickGetDigital(1, 5, JOY_UP)-joystickGetDigital(1, 5, JOY_DOWN)));
+    motorSet(8, 127*(joystickGetDigital(1, 5, JOY_UP)-joystickGetDigital(1, 5, JOY_DOWN)));
+    motorSet(9, 127*(joystickGetDigital(1, 5, JOY_UP)-joystickGetDigital(1, 5, JOY_DOWN)));
 
     //Intake Control
 
@@ -211,8 +205,8 @@ while (0 == 0) {
           motorSet(1, -15);
           t = 0;
     }
-    motorSet(8, 127*(joystickGetDigital(1, 8, JOY_DOWN)-joystickGetDigital(1, 8, JOY_RIGHT))); //Mobile Intake 1
-    motorSet(9, -127*(joystickGetDigital(1, 8, JOY_DOWN)-joystickGetDigital(1, 8, JOY_RIGHT))); //Mobile Intake 2
+
+    motorSet(10, 127*(joystickGetDigital(1, 8, JOY_DOWN)-joystickGetDigital(1, 8, JOY_RIGHT))); //Mobile Intake
 
     //lcdPrint(uart1, 1, "Spd: %f", getSpeed(enLeftDrive));
     //lcdPrint(uart1, 1, "Joy2: %d", isJoystickConnected(2));

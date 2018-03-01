@@ -11,9 +11,8 @@ int robotd = 39;
 int gearRatio = 7;
 int gyroOld = 0;
 
-//First Bar 16"
-
 void lMgFb(void *parameter) {
+  int calc = 0;
   forebarVar = analogRead(1);
   mobileVar = 0;
   liftVar = 0.5 * (encoderGet(enLeftLift) + encoderGet(enRightLift));
@@ -25,13 +24,14 @@ void lMgFb(void *parameter) {
     motorSet(3, repos(encoderGet(enRightLift), liftVar, 30)); //Pos Up
 
     //Forebar
-    motorSet(10, repos2(analogRead(1), forebarVar, 30, .8));
+    calc = repos2(analogRead(1), forebarVar, 30, .8);
+    motorSet(8, calc);
+    motorSet(9, calc);
 
     //Mobile Goal
     if (mobileVar != 0) {
-      int calc = 127 * mobileVar;
-      motorSet(8,-calc); //Neg Out
-      motorSet(9,calc); //Pos Out
+      calc = 127 * mobileVar;
+      motorSet(10,-calc); //Neg Out
       if (mobileVar > 0) {
         mobileVar = mobileVar - 1;
       }
@@ -39,39 +39,16 @@ void lMgFb(void *parameter) {
         mobileVar = mobileVar + 1;
       }
     } else {
-      motorSet(8, 0);
-      motorSet(9, 0);
+      motorSet(10, 0);
     }
   }
 }
-
-/*
-void waitForSpeed(void *parameter) {
-  while (true) {
-    delay(1000);
-    speedWait = false;
-    if(holdLift){
-      motorSet(6, reposIME(IMECounts0, lastLiftPosLeft, 1)*4);
-      motorSet(7, -reposIME(-IMECounts1, lastLiftPosRight, 1)*4);
-    }
-  }
-}
-*/
-
-/*
-void coneLiftSet(int pos) {
-  while (true) {
-    motorSet(8, -repos(encoderGet(intakeLift), pos, 30)*3);
-    if ((pos - 8 <= encoderGet(intakeLift) && encoderGet(intakeLift) <= pos + 8) && getSpeed(intakeLift) == 0) {
-      break;
-    }
-  }
-}
-*/
 
 void forebarSet(int pos, bool wait) {
+  int calc = repos(analogRead(1), pos, 30);
   while (wait && abs(pos-analogRead(1)) > 30) {
-    motorSet(10, repos(analogRead(1), pos, 30));
+    motorSet(8, calc);
+    motorSet(9, calc);
     lcdPrint(uart1, 1, "Ptmr:%d", analogRead(1));
   }
   if (wait != 1) {
@@ -150,43 +127,6 @@ void liftDown (int targLift) {
   }
 }
 
-/*
-void extakeWait(void) {
-  motorStop(9);
-  speedWait = true;
-  rollerHoldValue = encoderGet(intakeE);
-  while (true) {
-    motorSet(9, repos(encoderGet(intakeE), rollerHoldValue - 180, 10));
-    if (getSpeed(intakeE) == 0 && !speedWait) {
-      break;
-    }
-  }
-}
-*/
-/*
-void intake(void *parameter) {
-  motorStop(9);
-  speedWait = false;
-  while (true) {
-    delay(20);
-    rollerHoldValue = encoderGet(intakeE);
-    motorSet(9, 63);
-    // fprintf(stdout, "%s\n", "Intake Running");
-    if (getSpeed(intakeE) == 0 && !speedWait) {
-      fprintf(stdout, "%s\n", "Intake Task Stopped");
-      motorStop(9);
-      rollerHold = true;
-      taskSuspend(NULL);
-    }
-  }
-}
-*/
-/*
-void liftHeight(float height, bool wait) {
-
-}
-*/
-
 void forward2(float dist) {
   dist = ceil((dist / (wheeld*PI))*360);
   encoderReset(enLeftDrive);
@@ -200,8 +140,8 @@ void forward2(float dist) {
   while (0 == 0) {
     delay(20);
     diff = gyroGet(gyro) - gyroInit;
-    calcL = repos(encoderGet(enLeftDrive), dist, 30);
-    calcR = -repos(encoderGet(enRightDrive), dist, 30);
+    calcL = 0.8*repos(encoderGet(enLeftDrive), dist, 30);
+    calcR = -0.8*repos(encoderGet(enRightDrive), dist, 30);
     if (diff > 0) {
       calcL = calcL/abs(1 + (0.1 * diff));
     }
@@ -279,10 +219,12 @@ void forward(float dist) {
   void rotate(int ang, float speed) {
     gyroOld = gyroOld - gyroGet(gyro);
     gyroReset(gyro);
-    float calc = 10/speed;
+    float calc = 12/speed;
+    int t = 0;
     int tick = 5; // Amout of seconds*10 after the bot moves to correct any final
     while (0 == 0) {
       delay(20);
+      t = t + 20;
       motorSet(5, speed*repos(gyroGet(gyro), ang, 30));
       motorSet(7, speed*repos(gyroGet(gyro), ang, 30));
       motorSet(4, speed*repos(gyroGet(gyro), ang, 30));
@@ -295,7 +237,7 @@ void forward(float dist) {
       motorSet(3, repos2(-encoderGet(leftBack), calc, getSpeed(leftBack), 1, 1));
       motorSet(4, -repos2(encoderGet(rightBack), calc, getSpeed(rightBack), 1, 1));
       motorSet(5, -repos2(encoderGet(rightBack), calc, getSpeed(rightBack), 1, 1));*/
-      if (inr(gyroGet(gyro), ang, calc)) {
+      if (inr(gyroGet(gyro), ang, calc) || t > 250) {
         tick -= 1;
       } else {
         tick = 5;
@@ -314,12 +256,10 @@ void forward(float dist) {
 void mobileMove(float time, bool wait) {
   if (wait) {
     if (time > 0) {
-      motorSet(8, -127);
-      motorSet(9, 127);
+      motorSet(10, -127);
     }
     if (time < 0) {
-      motorSet(8, 127);
-      motorSet(9, -127);
+      motorSet(10, 127);
     }
 
     time = abs(time);
@@ -329,8 +269,7 @@ void mobileMove(float time, bool wait) {
       time = time - 20;
     }
 
-    motorSet(8, 0);
-    motorSet(9, 0);
+    motorSet(10, 0);
   }
   if (wait != 1) {
     mobileVar = floor(time/20);

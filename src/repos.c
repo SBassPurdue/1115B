@@ -11,10 +11,6 @@ int repos(int position, int dposition, int initSpd)
   return neg(dposition-position)*sqrt((((dposition-position)/3.6*1.27)*(dposition-position)/3.6*1.27+abs(initSpd*(dposition-position))));
 }
 
-int reposIME(int position, int dposition, int initSpd)
-{
-  return neg(dposition-position)*sqrt((((dposition-position)/6.272*1.27)*(dposition-position)/6.272*1.27+abs(initSpd*(dposition-position))));
-}
 int repos2(int pos, int dpos, int vel, float mass)
 {
 	return mass*(dpos-pos-vel);
@@ -27,6 +23,7 @@ bool inr(float value, float value2, float scaler) {
     return false;
   }
 }
+
 float max(float v1, float v2) { // returns the maximum number of the two numbers supplied
   if (v1 > v2) {
     return v1;
