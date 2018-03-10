@@ -2,6 +2,7 @@
 #include "main.h"
 #include "repos.h"
 #include "math.h"
+#include "drivePID.h"
 
 #define PI 3.14159
 
@@ -24,14 +25,14 @@ void lMgFb(void *parameter) {
     motorSet(3, repos(encoderGet(enRightLift), liftVar, 30)); //Pos Up
 
     //Forebar
-    calc = repos2(analogRead(1), forebarVar, 30, .8);
+    calc = repos2(analogRead(1), forebarVar, 30, .2);
     motorSet(8, calc);
     motorSet(9, calc);
 
     //Mobile Goal
     if (mobileVar != 0) {
       calc = 127 * mobileVar;
-      motorSet(10,-calc); //Neg Out
+      motorSet(10,calc); //Pos Out
       if (mobileVar > 0) {
         mobileVar = mobileVar - 1;
       }
@@ -127,51 +128,6 @@ void liftDown (int targLift) {
   }
 }
 
-void forward2(float dist) {
-  dist = ceil((dist / (wheeld*PI))*360);
-  encoderReset(enLeftDrive);
-  encoderReset(enRightDrive);
-  int gyroInit = gyroGet(gyro);
-  int i = 5;
-  int diff = 0;
-  int calcL = 0;
-  int calcR = 0;
-
-  while (0 == 0) {
-    delay(20);
-    diff = gyroGet(gyro) - gyroInit;
-    calcL = 0.8*repos(encoderGet(enLeftDrive), dist, 30);
-    calcR = -0.8*repos(encoderGet(enRightDrive), dist, 30);
-    if (diff > 0) {
-      calcL = calcL/abs(1 + (0.1 * diff));
-    }
-    if (diff < 0) {
-      calcR = calcR/abs(1 + (0.1 * abs(diff)));
-    }
-    lcdPrint(uart1, 1, "CalcL: %d", calcL);
-    lcdPrint(uart1, 2, "enL: %d", encoderGet(enLeftDrive));
-
-    motorSet(5, calcL);
-    motorSet(7, calcL);
-    motorSet(4, calcR);
-    motorSet(6, calcR);
-
-    if (inr(max(encoderGet(enLeftDrive), encoderGet(enRightDrive)), dist, 35)) {
-      i -= 1;
-    } else {
-      i = 5;
-    }
-
-    if (i <= 0) {
-      motorStop(5);
-      motorStop(7);
-      motorStop(4);
-      motorStop(6);
-      break;
-    }
-  }
-}
-
 void forward(float dist) {
   encoderReset(enLeftDrive);
   encoderReset(enRightDrive);
@@ -252,6 +208,99 @@ void forward(float dist) {
         delay(100);
       }
     }
+
+void forward2(float dist) {
+  dist = ceil((dist / (wheeld*PI))*360);
+  encoderReset(enLeftDrive);
+  encoderReset(enRightDrive);
+  int gyroInit = gyroGet(gyro);
+  int i = 5;
+  int diff = 0;
+  int calcL = 0;
+  int calcR = 0;
+
+  while (0 == 0) {
+    delay(20);
+    diff = gyroGet(gyro) - gyroInit;
+    calcL = 0.8*repos(encoderGet(enLeftDrive), dist, 30);
+    calcR = -0.8*repos(encoderGet(enRightDrive), dist, 30);
+    if (diff > 0) {
+      calcL = calcL/abs(1 + (0.1 * diff));
+    }
+    if (diff < 0) {
+      calcR = calcR/abs(1 + (0.1 * abs(diff)));
+    }
+    lcdPrint(uart1, 1, "CalcL: %d", calcL);
+    lcdPrint(uart1, 2, "enL: %d", encoderGet(enLeftDrive));
+
+    motorSet(5, calcL);
+    motorSet(7, calcL);
+    motorSet(4, calcR);
+    motorSet(6, calcR);
+
+    if (inr(max(encoderGet(enLeftDrive), encoderGet(enRightDrive)), dist, 35)) {
+      i -= 1;
+    } else {
+      i = 5;
+    }
+
+    if (i <= 0) {
+      motorStop(5);
+      motorStop(7);
+      motorStop(4);
+      motorStop(6);
+      break;
+    }
+  }
+}
+
+void forward3(float dist) {
+  dist = ceil((dist / (wheeld*PI))*360);
+  driveSetPos(dist);
+  int i = 5;
+  while (0 == 0) {
+    delay(20);
+    driveMove();
+
+    if (inr(max(encoderGet(enLeftDrive), encoderGet(enRightDrive)), dist, 10)) {
+      i -= 1;
+    } else {
+      i = 5;
+    }
+
+    if (i <= 0) {
+      motorStop(5);
+      motorStop(7);
+      motorStop(4);
+      motorStop(6);
+      break;
+    }
+  }
+}
+
+void forward3t(float dist, int t) {
+  dist = ceil((dist / (wheeld*PI))*360);
+  driveSetPos(dist);
+  int i = 5;
+  while (0 == 0) {
+    delay(20);
+    driveMove();
+    t = t - 20;
+    if (inr(max(encoderGet(enLeftDrive), encoderGet(enRightDrive)), dist, 10)) {
+      i -= 1;
+    } else {
+      i = 5;
+    }
+
+    if (i <= 0  || t < 0) {
+      motorStop(5);
+      motorStop(7);
+      motorStop(4);
+      motorStop(6);
+      break;
+    }
+  }
+}
 
 void mobileMove(float time, bool wait) {
   if (wait) {

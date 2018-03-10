@@ -14,6 +14,7 @@
 #include "liftControl.h"
 #include "repos.h"
 #include "lcd.h"
+#include "drivePID.h"
 
 /*
  * Runs the user autonomous code. This function will be started in its own task with the default
@@ -33,5 +34,6 @@ void autonomous() {
   encoderReset(enRightLift);
   encoderReset(enLeftLift);
   taskResume(lMgFbHandler);
+  drivePIDInit();
   lcdScriptExecute();
 }

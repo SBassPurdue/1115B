@@ -23,6 +23,8 @@ void align(int speed);
 //void stack1(void);
 void forward(float dist);
 void forward2(float dist);
+void forward3(float dist);
+void forward3t(float dist, int t);
 void back(float dist);
 void rotSet();
 void rotGo(float speed);

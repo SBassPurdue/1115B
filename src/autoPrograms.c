@@ -29,41 +29,39 @@
  * The autonomous task may exit, unlike operatorControl() which should never exit. If it does
  * so, the robot will await a switch to another mode or disable/enable cycle.
  */
+
+void getMobile(void) {
+
+  motorSet(1, -15);
+  forebarSet(fbrUp, 0);
+  mobileMove(1800, 0);
+  delay(350);
+
+  forward3t(150, 1800);
+
+  mobileMove(-1800, 0);
+  delay(1400);
+}
+
 void Right22(void) {
 
-  forebarSet(fbrUp, 0);
-  mobileMove(1400, 0);
+  getMobile();
 
-  forward2(130);
-
-  motorSet(4, -60);
-  motorSet(6, -60);
-  motorSet(5, 60);
-  motorSet(7, 60);
-  mobileMove(-1400, 0);
-  delay(180);
-  motorStop(4);
-  motorStop(5);
-  motorStop(6);
-  motorStop(7);
-
-  delay(240);
-
-  forward(-145);
+  forward3(-140);
 
   extake(100);
 
   rotate(45, 2);
 
-  forward(-65);
+  forward3(-65);
 
   rotate(90, 2);
 
-  mobileMove(700, 0);
+  mobileMove(1000, 0);
   align(127);
 
   mobileMove(700, 0);
-  delay(400);
+  delay(700);
 
   motorSet(4, 127);
   motorSet(6, 127);
@@ -79,46 +77,30 @@ void Right22(void) {
 
 void Right12(void) {
 
-  forebarSet(fbrUp, 0);
-  mobileMove(1400, 0);
+  getMobile();
 
-  forward2(130);
-
-  motorSet(4, -60);
-  motorSet(6, -60);
-  motorSet(5, 60);
-  motorSet(7, 60);
-  mobileMove(-1400, 0);
-  delay(180);
-  motorStop(4);
-  motorStop(5);
-  motorStop(6);
-  motorStop(7);
-
-  delay(240);
-
-  forward(-145);
+  forward3(-140);
 
   extake(100);
 
   rotate(45, 2);
 
-  forward(-10);
+  forward3(-20);
 
   rotate(90, 2);
 
-  mobileMove(700, 0);
+  mobileMove(1000, 0);
   align(40);
 
   mobileMove(700, 0);
-  delay(400);
+  delay(700);
 
   motorSet(4, 127);
   motorSet(6, 127);
   motorSet(5, -127);
   motorSet(7, -127);
   mobileMove(-500, 0);
-  delay(1000);
+  delay(4000);
   motorStop(4);
   motorStop(5);
   motorStop(6);
@@ -126,109 +108,63 @@ void Right12(void) {
 }
 
 void Right7(void) {
-  forebarSet(fbrUp, 0);
-  mobileMove(1400, 0);
 
-  forward2(135);
+  getMobile();
 
-  motorSet(4, -60);
-  motorSet(6, -60);
-  motorSet(5, 60);
-  motorSet(7, 60);
-  mobileMove(-1400, 0);
-  delay(180);
-  motorStop(4);
-  motorStop(5);
-  motorStop(6);
-  motorStop(7);
-
-  delay(240);
-
-  forward(-125);
+  forward3(-125);
 
   extake(100);
 
   rotate(-180, 2);
 
-  mobileMove(1400, 0);
-  delay(1400);
+  mobileMove(1800, 0);
+  delay(1800);
 
-  forward(-30);
+  forward3(-30);
 }
 
 void Left7(void) {
-  forebarSet(fbrUp, 0);
-  mobileMove(1400, 0);
 
-  forward2(140);
+  getMobile();
 
-  motorSet(4, -60);
-  motorSet(6, -60);
-  motorSet(5, 60);
-  motorSet(7, 60);
-  mobileMove(-1400, 0);
-  delay(180);
-  motorStop(4);
-  motorStop(5);
-  motorStop(6);
-  motorStop(7);
-
-  delay(240);
-
-  forward(-125);
+  forward3(-125);
 
   extake(100);
 
   rotate(180, 2);
 
-  mobileMove(1400, 0);
-  delay(1400);
+  mobileMove(1800, 0);
+  delay(1800);
 
-  forward(-30);
+  forward3(-30);
 }
 
 void Left12(void) {
 
-  forebarSet(fbrUp, 0);
-  mobileMove(1400, 0);
+  getMobile();
 
-  forward2(135);
-
-  motorSet(4, -60);
-  motorSet(6, -60);
-  motorSet(5, 60);
-  motorSet(7, 60);
-  mobileMove(-1400, 0);
-  delay(180);
-  motorStop(4);
-  motorStop(5);
-  motorStop(6);
-  motorStop(7);
-
-  delay(240);
-
-  forward(-145);
+  forward3(-140);
 
   extake(100);
 
   rotate(-45, 2);
 
-  forward(-10);
+  forward3(-10);
 
   rotate(-90, 2);
 
-  mobileMove(700, 0);
+  mobileMove(1000, 0);
   align(40);
 
   mobileMove(700, 0);
-  delay(400);
+  delay(700);
 
   motorSet(4, 127);
   motorSet(6, 127);
   motorSet(5, -127);
   motorSet(7, -127);
   mobileMove(-500, 0);
-  delay(1000);
+  delay(4000);
   motorStop(4);
   motorStop(5);
   motorStop(6);
@@ -237,96 +173,19 @@ void Left12(void) {
 
 void Left22(void) {
 
-  forebarSet(fbrUp, 0);
-  mobileMove(1400, 0);
+  getMobile();
 
-  forward2(130);
-
-  motorSet(4, -60);
-  motorSet(6, -60);
-  motorSet(5, 60);
-  motorSet(7, 60);
-  mobileMove(-1400, 0);
-  delay(180);
-  motorStop(4);
-  motorStop(5);
-  motorStop(6);
-  motorStop(7);
-
-  delay(240);
-
-  forward(-145);
+  forward3(-140);
 
   extake(100);
 
   rotate(-45, 2);
 
-  forward(-65);
+  forward3(-65);
 
   rotate(-90, 2);
 
-  mobileMove(700, 0);
-  align(127);
-
-  mobileMove(700, 0);
-  delay(400);
-
-  motorSet(4, 127);
-  motorSet(6, 127);
-  motorSet(5, -127);
-  motorSet(7, -127);
-  mobileMove(-500, 0);
-  delay(1000);
-  motorStop(4);
-  motorStop(5);
-  motorStop(6);
-  motorStop(7);
-}
-
-void Left24(void) {
-
-  forebarSet(fbrUp, 0);
-  mobileMove(1400, 0);
-
-  forward2(130);
-
-  motorSet(4, -60);
-  motorSet(6, -60);
-  motorSet(5, 60);
-  motorSet(7, 60);
-  mobileMove(-1400, 0);
-  delay(180);
-  motorStop(4);
-  motorStop(5);
-  motorStop(6);
-  motorStop(7);
-
-  delay(1300);
-
-  extake(100);
-
-  rotSet();
-
-  forebarSet(fbrOut, 0);
-  align(20);
-
-  forebarSet(fbrDown, 0);
-  intake(500);
-
-  forebarSet(fbrUp, 0);
-  lift(150, 0);
-  rotGo(2);
-
-  forward(-145);
-
-  rotate(-45, 2);
-
-  extake(100);
-  forward(-65);
-
-  rotate(-90, 2);
-
-  mobileMove(700, 0);
+  mobileMove(1000, 0);
   align(127);
 
   mobileMove(700, 0);
@@ -349,22 +208,24 @@ void pylon(void) {
   encoderReset(enLeftLift);
   encoderReset(enRightLift);
 
-  motorSet(1, -40);
+  motorSet(1, -80);
   forebarSet(fbrUp, 0);
   lift(280, 0);
 
   delay(2000);
 
-  forward2(55);
+  motorSet(1, -15);
+  forward3(55);
 
-  lift(200, 0);
-
+  lift(190, 0);
   delay(500);
+
+  extake(400);
 
   lift(330, 0);
   extake(1600);
 
-  forward(-50);
+  forward3(-50);
 
   lift(80, 0);
 }
@@ -381,7 +242,7 @@ void pylonL(void) {
 
   rotate(-90, 1.5);
 
-  forward2(130);
+  forward3(130);
 }
 
 void pylonR(void) {
@@ -393,7 +254,7 @@ void pylonR(void) {
 
   rotate(90, 1.5);
 
-  forward2(130);
+  forward3(130);
 }
 
 void defense(void) {
@@ -414,11 +275,24 @@ void defense(void) {
 motorStopAll();
 }
 
+void test(void) {
+
+  forebarSet(fbrUp, 0);
+  forward3(50);
+  delay(250);
+  forward3(-50);
+  delay(250);
+  forward3(50);
+  delay(250);
+  forward3(-50);
+
+}
+
 /*void redSkills(void) {
   forebarSet(fbrUp, 0);
   mobileMove(1400, 0);
 
-  forward2(130);
+  forward3(130);
 
   align(35);
 
@@ -448,7 +322,7 @@ motorStopAll();
   rotate(180, 1.5);
 
   mobileMove(250, 0);
-  forward2(50);
+  forward3(50);
 
   motorSet(4, -60);
   motorSet(6, -60);
@@ -497,7 +371,7 @@ motorStopAll();
   align(-40);
 
   mobileMove(450, 0);
-  forward2(50);
+  forward3(50);
 
   motorSet(4, -60);
   motorSet(6, -60);
@@ -543,7 +417,7 @@ void redSkills (void) {
 
   delay(750);
 
-  forward2(85);
+  forward3(85);
 
   motorSet(4, -60);
   motorSet(6, -60);
@@ -564,19 +438,19 @@ void redSkills (void) {
   mobileMove(700, 0);
   delay(400);
 
-  forward(-45);
+  forward3(-45);
 
   rotGo(1.5);
 
   mobileMove(-500, 0);
 
-  forward(55);
+  forward3(55);
 
 
   rotate(-80, 1.5);
 
   mobileMove(750, 0);
-  forward2(85);
+  forward3(85);
 
   motorSet(4, -60);
   motorSet(6, -60);
@@ -593,11 +467,11 @@ void redSkills (void) {
 
   align(40);
 
-  forward(-35);
+  forward3(-35);
 
   rotate(90, 1.5);
 
-  forward(-35);
+  forward3(-35);
 
   rotate(-90, 1.5);
 

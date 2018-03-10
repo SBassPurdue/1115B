@@ -14,12 +14,13 @@
 #include "liftControl.h"
 #include "lcd.h"
 #include "autoPrograms.h"
+#include "drivePID.h"
 
 const char* typeTitles[] = {"Skills", "Match"};
-const char* matchTitles[] = {"24Left", "22Left", "12Left", "7Left", "22Right", "12Right", "7Right", "Pylon Safe", "Pylon Left", "Pylon Right", "Defense"};
+const char* matchTitles[] = {"22Left", "12Left", "7Left", "22Right", "12Right", "7Right", "Pylon Safe", "Pylon Left", "Pylon Right", "Defense", "24Left"};
 const char* skillsTitles[] = {"Red Skills (L)"};
 const char* sensorTypes[] = {"Encoders", "Gyroscope", "Potentiometer", "Joystick", "Motors"};
-void (*matchScripts[])() = {Left24, Left22, Left12, Left7, Right22, Right12, Right7, pylon, pylonL, pylonR, defense};
+void (*matchScripts[])() = {Left22, Left12, Left7, Right22, Right12, Right7, pylon, pylonL, pylonR, defense, test};
 void (*skillsScripts[])() = {redSkills};
 
 /*
@@ -50,7 +51,6 @@ void initializeIO() {
 
 void initialize() {
 
-  int t = 0; //Timer
   lcdIN = 0;
   setTeamName("1115B");
 

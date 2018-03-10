@@ -105,16 +105,16 @@ while (0 == 0) {
     if (joystickGetDigital(2, 8, JOY_UP)) {forebar = 3;} //Forebar Up
 
     if (forebar == 1) {
-      motorSet(8, repos(analogRead(1), fbrDown, 30)); //Forebar Down
-      motorSet(9, repos(analogRead(1), fbrDown, 30));
+      motorSet(8, 0.5*repos(analogRead(1), fbrDown, 30)); //Forebar Down
+      motorSet(9, 0.5*repos(analogRead(1), fbrDown, 30));
     }
     if (forebar == 2) {
-      motorSet(8, repos(analogRead(1), fbrOut, 30)); //Forebar Out
-      motorSet(9, repos(analogRead(1), fbrOut, 30));
+      motorSet(8, 0.5*repos(analogRead(1), fbrOut, 30)); //Forebar Out
+      motorSet(9, 0.5*repos(analogRead(1), fbrOut, 30));
     }
     if (forebar == 3) {
-      motorSet(8, repos(analogRead(1), fbrUp, 30)); //Forebar Up
-      motorSet(9, repos(analogRead(1), fbrUp, 30));
+      motorSet(8, 0.5*repos(analogRead(1), fbrUp, 30)); //Forebar Up
+      motorSet(9, 0.5*repos(analogRead(1), fbrUp, 30));
     }
 
     //Intake Control

@@ -16,6 +16,7 @@ int page = 0;
 unsigned int sensorTypeNumber = 0;
 int lastPage;
 bool showBackup;
+bool showLift;
 
 void lcdPrintCentered(unsigned char line, const char* string) {
 	char out[16];
@@ -234,19 +235,28 @@ void mainMenu(void) {
 			}
 		}
 		else if (page == 4) {
-			/*lcdPrint(lcdPort, 1, "  This Feature  ");
-			lcdPrint(lcdPort, 2, "Is Not Ready Yet");*/
 
-			// lcdPrint(lcdPort, 1, "< Sensor  Type >");
-			//lcdPrint(lcdPort, 1, " Left Lift: %d", encoderGet(enLeftLift));
-			lcdPrint(lcdPort, 2, "Right Lift: %d", encoderGet(enRightLift));
-			lcdPrint(lcdPort, 1, " Ptmr: %d", analogRead(1));
-			if (button == 2 && !waitForRelease) {
-				// fprintf(stdout, "%s\n", "It Worked!");
-				// page = sensorTypeNumber + 5;
+			if (button == 4 && !waitForRelease && showLift) {
 				waitForRelease = true;
-				encoderReset(enLeftLift);
-				encoderReset(enRightLift);
+				showLift = false;
+			}
+			else if (button == 4 && !waitForRelease && !showLift) {
+				waitForRelease = true;
+				showLift = true;
+			}
+			if (!showLift) {
+				lcdPrint(lcdPort, 1, " Ptmr: %d", analogRead(1));
+				lcdPrint(lcdPort, 2, "DL:%d DR:%d", encoderGet(enLeftDrive), encoderGet(enRightDrive));
+			}
+			if (showLift) {
+				lcdPrint(lcdPort, 1, "Right Lift: %d", encoderGet(enRightLift));
+				lcdPrint(lcdPort, 2, " Left Lift: %d", encoderGet(enLeftLift));
+			}
+
+				if (button == 2 && !waitForRelease) {
+					waitForRelease = true;
+					encoderReset(enLeftLift);
+					encoderReset(enRightLift);
 			}
 
 			if (button == 1 && !waitForRelease) {

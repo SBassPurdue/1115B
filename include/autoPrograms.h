@@ -2,7 +2,7 @@
 #define AUTOPROGRAMS_H_
 
 //Match
-void Left24(void);
+void test(void);
 void Left22(void);
 void Left12(void);
 void Left7(void);
