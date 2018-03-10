@@ -34,12 +34,12 @@ void getMobile(void) {
 
   motorSet(1, -15);
   forebarSet(fbrUp, 0);
-  mobileMove(1800, 0);
+  mobileMove(1500, 0);
   delay(350);
 
   forward3t(150, 1800);
 
-  mobileMove(-1800, 0);
+  mobileMove(-1500, 0);
   delay(1400);
 }
 
@@ -57,7 +57,7 @@ void Right22(void) {
 
   rotate(90, 2);
 
-  mobileMove(1000, 0);
+  mobileMove(700, 0);
   align(127);
 
   mobileMove(700, 0);
@@ -67,6 +67,7 @@ void Right22(void) {
   motorSet(6, 127);
   motorSet(5, -127);
   motorSet(7, -127);
+  delay(100);
   mobileMove(-500, 0);
   delay(1000);
   motorStop(4);
@@ -89,7 +90,7 @@ void Right12(void) {
 
   rotate(90, 2);
 
-  mobileMove(1000, 0);
+  mobileMove(700, 0);
   align(40);
 
   mobileMove(700, 0);
@@ -99,6 +100,7 @@ void Right12(void) {
   motorSet(6, 127);
   motorSet(5, -127);
   motorSet(7, -127);
+  delay(100);
   mobileMove(-500, 0);
   delay(4000);
   motorStop(4);
@@ -117,7 +119,7 @@ void Right7(void) {
 
   rotate(-180, 2);
 
-  mobileMove(1800, 0);
+  mobileMove(1500, 0);
   delay(1800);
 
   forward3(-30);
@@ -133,7 +135,7 @@ void Left7(void) {
 
   rotate(180, 2);
 
-  mobileMove(1800, 0);
+  mobileMove(1500, 0);
   delay(1800);
 
   forward3(-30);
@@ -153,7 +155,7 @@ void Left12(void) {
 
   rotate(-90, 2);
 
-  mobileMove(1000, 0);
+  mobileMove(700, 0);
   align(40);
 
   mobileMove(700, 0);
@@ -163,6 +165,7 @@ void Left12(void) {
   motorSet(6, 127);
   motorSet(5, -127);
   motorSet(7, -127);
+  delay(100);
   mobileMove(-500, 0);
   delay(4000);
   motorStop(4);
@@ -185,7 +188,7 @@ void Left22(void) {
 
   rotate(-90, 2);
 
-  mobileMove(1000, 0);
+  mobileMove(700, 0);
   align(127);
 
   mobileMove(700, 0);
@@ -195,6 +198,7 @@ void Left22(void) {
   motorSet(6, 127);
   motorSet(5, -127);
   motorSet(7, -127);
+  delay(100);
   mobileMove(-500, 0);
   delay(1000);
   motorStop(4);
